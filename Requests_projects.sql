@@ -56,6 +56,27 @@ WHERE NOT EXISTS (
 responsabilité + coût des heures de formation) ont été les plus élevées et classées dans
 l’ordre décroissant de ces dépenses ? */
 
+CREATE TEMPORARY TABLE T1
+SELECT s.no_session,SUM(prix+(nb_heures*taux_heure)+prime)d
+FROM session s,anime a
+WHERE s.no_session = a.no_session
+AND (year(date_deb)=2019)
+GROUP BY no_session;
+
+CREATE TEMPORARY TABLE T2
+SELECT COUNT(*)n1,R1.no_session,R1.d
+FROM T1 R1,T1 R2
+WHERE R1.d <= R2.d
+GROUP BY R1.no_session,R1.d;
+CREATE TEMPORARY TABLE T3
+SELECT d,COUNT(*)n2
+FROM T1
+GROUP BY d;
+SELECT n1+1-n2 classt,T2.no_session,T2.d
+FROM T2,T3
+WHERE T2.d = T3.d
+AND n1+1-n2 <=10
+ORDER BY classt;
 
 /* Requête de vérification de cohérence */
 
