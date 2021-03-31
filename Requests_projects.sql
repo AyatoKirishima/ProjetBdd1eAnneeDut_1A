@@ -64,10 +64,10 @@ AND (YEAR(date_deb)=2019)
 GROUP BY no_session;
 
 CREATE TEMPORARY TABLE T2
-SELECT COUNT(*)n1,R1.no_session,R1.depenses
-FROM T1 R1,T1 R2
-WHERE R1.depenses <= R2.depenses
-GROUP BY R1.no_session,R1.depenses;
+SELECT COUNT(*)n1, table1.no_session, table1.depenses
+FROM T1 table1,T1 table2
+WHERE table1.depenses <= table2.depenses
+GROUP BY table1.no_session,table1.depenses;
 
 CREATE TEMPORARY TABLE T3
 SELECT d,COUNT(*)n2
