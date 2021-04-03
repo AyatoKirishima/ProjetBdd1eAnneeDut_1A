@@ -85,6 +85,21 @@ ORDER BY classt;
 /* 10- Existe-t-il des animateurs qui ont été responsables d’une session portant sur un thème
 dont ils ne sont pas spécialistes ? */
 
+SELECT animateur.nom_anim,animateur.prenom_anim
+FROM animateur
+WHERE  NOT EXISTS(
+    SELECT session.no_anim_resp
+    FROM session
+    WHERE session.no_anim_resp NOT IN(
+        SELECT specialite.no_anim
+        FROM specialite,session
+        WHERE specialite.no_theme = session.no_theme
+        AND session.no_anim_resp = animateur.no_anim
+        UNION
+        SELECT session.no_anim_resp
+        FROM specialite,session
+        WHERE specialite.no_theme = session.no_theme
+        AND session.no_anim_resp = animateur.no_anim))
 
 /* Synthaxe de l'UNION :
 SELECT * FROM table1
