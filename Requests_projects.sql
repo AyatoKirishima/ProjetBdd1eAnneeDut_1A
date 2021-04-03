@@ -33,6 +33,36 @@ FROM table2
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
 
+CREATE TEMPORARY TABLE t1
+SELECT COUNT(*), SESSION.no_session
+FROM ADHERENT, INSCRIT1, SESSION
+WHERE ADHERENT.no_type_adh = "TA01"
+AND ADHERENT.no_adh = INSCRIT1.no_adh
+AND INSCRIT1.no_session = SESSION.no_session
+AND SESSION.date_deb BETWEEN "2019-01-01" AND "2019-12-31"
+UNION
+SELECT 0, SESSION.no_session
+FROM SESSION
+WHERE SESSION.no_session NOT IN (
+    SELECT INSCRIT1.no_session
+    FROM INSCRIT1);
+
+CREATE TEMPORARY TABLE t2
+SELECT COUNT(*), SESSION.no_session
+FROM THEME, SESSION
+WHERE SESSION.date_deb BETWEEN "2019-01-01" AND "2019-12-31"
+AND THEME.no_theme = "Le sport en entreprise"
+AND THEME.no_theme = "Bases de Donnees"
+AND THEME.no_theme = "L'égalité homme-femme"
+AND THEME.no_theme = "Développement WEB"
+AND THEME.no_theme = "Aide à la personne"
+AND THEME.no_theme = "Sécurité au travail"
+And SESSION.no_theme = THEME.no_theme;
+
+SELECT ADHERENT.no_adh, ADHERENT.nom_adh
+FROM t1, t2, ADHERENT
+WHERE t1.no_session = t2.no_session
+
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
 « Bases de Données » et démarrant en 2018 ou 2019 ? */
 /* Condition : 2018 || 2019 = et (condition) / et ((annee(date_deb)=2018) ou (annee(date_deb)=2019))*/
