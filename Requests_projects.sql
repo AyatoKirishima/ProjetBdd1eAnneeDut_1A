@@ -33,7 +33,7 @@ FROM table2
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
 
-CREATE TEMPORARY TABLE t1
+/* CREATE TEMPORARY TABLE t1
 SELECT COUNT(*), SESSION.no_session
 FROM ADHERENT, INSCRIT1, SESSION
 WHERE ADHERENT.no_type_adh = "TA01"
@@ -61,7 +61,7 @@ And SESSION.no_theme = THEME.no_theme;
 
 SELECT ADHERENT.no_adh, ADHERENT.nom_adh
 FROM t1, t2, ADHERENT
-WHERE t1.no_session = t2.no_session
+WHERE t1.no_session = t2.no_session */
 
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
 « Bases de Données » et démarrant en 2018 ou 2019 ? */
