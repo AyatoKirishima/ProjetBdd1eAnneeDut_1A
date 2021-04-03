@@ -33,7 +33,25 @@ FROM table2
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
 
-
+SELECT DISTINCT no_emp, nom_emp
+FROM employe, inscrit2
+WHERE NOT EXISTS (
+    SELECT no_session
+    FROM session, theme
+    WHERE (YEAR(date_deb)=2019)
+    AND session.no_theme = theme.no_theme
+    AND no_session NOT IN (
+        SELECT no_session
+        FROM anime
+        WHERE anime.no_anim = animateur.no_anim
+    )
+AND no_session.inscrit2 = no_session.session
+AND no_emp.inscrit2 = no_emp.employe
+AND EXISTS (
+    SELECT (*)
+    FROM employe
+)
+)
 
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
 « Bases de Données » et démarrant en 2018 ou 2019 ? */
@@ -47,6 +65,7 @@ WHERE NOT EXISTS (
     FROM session, theme
     WHERE ((YEAR(date_deb)=2018) OR (YEAR(date_deb)=2019))
     AND session.no_theme = theme.no_theme
+    AND lib_theme = "Base de Données"
     AND no_session NOT IN (
         SELECT no_session
         FROM anime
