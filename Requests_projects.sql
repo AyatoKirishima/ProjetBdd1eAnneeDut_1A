@@ -38,7 +38,8 @@ FROM employe, inscrit2
 WHERE NOT EXISTS (
     SELECT no_session
     FROM session, theme
-    WHERE (YEAR(date_deb)=2019)
+    WHERE ((date_deb >= "2019-01-01") 
+    AND (date_deb < "2020-01-01"))
     AND session.no_theme = theme.no_theme
     AND no_session NOT IN (
         SELECT no_session
@@ -47,10 +48,10 @@ WHERE NOT EXISTS (
     )
 AND inscrit2.no_session = session.no_session
 AND inscrit2.no_emp = employe.no_emp
-AND EXISTS (
+/*AND EXISTS (
     SELECT *
     FROM employe
-	)
+	)*/
 )
 
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
