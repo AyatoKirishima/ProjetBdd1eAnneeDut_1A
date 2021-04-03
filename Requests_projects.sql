@@ -57,7 +57,7 @@ responsabilité + coût des heures de formation) ont été les plus élevées et
 l’ordre décroissant de ces dépenses ? */
 
 CREATE TEMPORARY TABLE T1
-SELECT s.no_session,SUM(prix+(nb_heures*taux_heure)+prime) depenses
+SELECT session.no_session,SUM(prix+(nb_heures*taux_heure)+prime) depenses
 FROM session, anime
 WHERE session.no_session = anime.no_session
 AND (YEAR(date_deb)=2019)
@@ -70,7 +70,7 @@ WHERE table1.depenses <= table2.depenses
 GROUP BY table1.no_session,table1.depenses;
 
 CREATE TEMPORARY TABLE T3
-SELECT d,COUNT(*)n2
+SELECT depenses,COUNT(*)n2
 FROM T1
 GROUP BY depenses;
 
