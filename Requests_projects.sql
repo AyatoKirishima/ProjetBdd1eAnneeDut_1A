@@ -107,7 +107,7 @@ ORDER BY classt;
 /* 10- Existe-t-il des animateurs qui ont été responsables d’une session portant sur un thème
 dont ils ne sont pas spécialistes ? */
 
-SELECT animateur.nom_anim,animateur.prenom_anim
+SELECT animateur.nom_anim, animateur.prenom_anim, animateur.no_anim
 FROM animateur
 WHERE  NOT EXISTS(
     SELECT session.no_anim_resp
