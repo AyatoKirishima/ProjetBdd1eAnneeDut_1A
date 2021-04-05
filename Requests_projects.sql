@@ -1,5 +1,30 @@
 /* Requêtes d’interrogation */
 
+/* 1- Que pourcentage des sessions déjà réalisées comporte des employés inscrits provenant d'au moins 4 entreprises différentes ? */
+
+CREATE TEMPORARY TABLE table1
+    SELECT no_session
+    FROM session s, inscrit2 ins2, employe emp, adherent adh, type_adh t_adh
+    WHERE s.no_session = ins2.no_session
+    AND ins2.no_emp = emp.no_emp
+    AND emp.no_adh = adh.no_adh
+    AND adh.no_type_adh = t_adh.no_type_adh
+    AND nom_type_adh = "Entreprise"
+    GROUP BY no_session
+    HAVING COUNT(no_adh)>= 4;
+    
+CREATE TEMPORARY TABLE table2
+    SELECT COUNT(*) n2
+    FROM table1;
+    
+CREATE TEMPORARY TABLE table3
+    SELECT COUNT(no_session) n1
+    FROM session
+    WHERE date_deb < NOW();
+    SELECT (n2*100)/n1
+    FROM table2, table3;
+    
+
 /* 2- Quel est, pour chacune des sessions démarrant en 2018 ou 2019 et portant sur le thème
 « Bases de Données », le nombre d’inscrits de type adhérent « individuel » (attention
 au cas 0) ? */
@@ -29,6 +54,8 @@ UNION
 SELECT no_session 
 FROM table2 
 
+/* 3- Quel est, pour chacune des sessions ayant démarré en 2020, le pourcentage de participants inscrits par une entreprise et le pourcentage de articipants individuels ? */
+
 /* 4- Quels adhérents de type entreprise ont inscrit au moins un employé à des sessions
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
@@ -53,6 +80,8 @@ AND NOT EXISTS (
     )
 )
 
+/* 5- Quels sont les thèmes pour lesquels au moins une session a été organisée lors de chacune des 3 dernières années révolues ? */
+
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
 « Bases de Données » et démarrant en 2018 ou 2019 ? */
 /* Condition : 2018 || 2019 = et (condition) / et ((annee(date_deb)=2018) ou (annee(date_deb)=2019))*/
@@ -72,6 +101,8 @@ WHERE NOT EXISTS (
         WHERE anime.no_anim = animateur.no_anim
     )
 )
+
+/* 7- Pour tous les salaires versés en 2020, quel est le pourcentage correspondant aux prises de responsabilités et le pourcentage correspondant aux heures de formation ?*/
 
 /* 8- Quelles sont les 10 sessions démarrant en 2019 pour lesquelles les dépenses (prime de
 responsabilité + coût des heures de formation) ont été les plus élevées et classées dans
@@ -102,6 +133,8 @@ AND (n1+1)-n2 <= 10
 ORDER BY classt;
 
 /* Requête de vérification de cohérence */
+
+/* 9- Existe-t-il des sessions pour lesquelles l'animateur responsable de la session ne fait pas partie de l'ensemble des animateurs de la session ?*/
 
 /* 10- Existe-t-il des animateurs qui ont été responsables d’une session portant sur un thème
 dont ils ne sont pas spécialistes ? */
