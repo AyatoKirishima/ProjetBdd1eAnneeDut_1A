@@ -29,8 +29,9 @@ CREATE TEMPORARY TABLE table3
 /* 2- Quel est, pour chacune des sessions démarrant en 2018 ou 2019 et portant sur le thème
 « Bases de Données », le nombre d’inscrits de type adhérent « individuel » (attention
 au cas 0) ? */
- 
-    SELECT COUNT(no_adh) AS "Nombre d'inscrit.s", session.no_session
+
+CREATE TEMPORARY TABLE table1 
+    SELECT COUNT(no_adh), session.no_session
     FROM theme, session, inscrit1
     WHERE theme.no_theme = session.no_theme
     AND session.no_session = inscrit1.no_session
@@ -38,7 +39,8 @@ au cas 0) ? */
     AND (date_deb <= "2018-01-01"
     OR date_deb >= "2019-01-01")
     GROUP BY session.no_session /* <-- on partionne sur le nombre de sessions */
-UNION 
+    ;
+CREATE TEMPORARY TABLE table2 
     SELECT no_session, 0
     FROM inscrit1
     WHERE no_session NOT IN 
@@ -46,7 +48,12 @@ UNION
         SELECT no_session
         FROM session, theme
         WHERE theme.no_theme = session.no_theme
-    )
+    );
+SELECT no_session 
+FROM table1
+UNION
+SELECT no_session 
+FROM table2 
 
 /* 3- Quel est, pour chacune des sessions ayant démarré en 2020, le pourcentage de participants inscrits par une entreprise et le pourcentage de articipants individuels ? */
 
@@ -54,7 +61,7 @@ UNION
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
 
-SELECT adherent.no_adh AS "Numero adherent", nom_adh AS "Nom adherent"
+SELECT adherent.no_adh, nom_adh
 FROM adherent,type_adh, employe, inscrit2, session
 WHERE adherent.no_type_adh=type_adh.no_type_adh
 AND nom_type_adh = "Entreprise"
@@ -92,7 +99,7 @@ AND (YEAR(date_deb) = 2020)
 /* Condition : 2018 || 2019 = et (condition) / et ((annee(date_deb)=2018) ou (annee(date_deb)=2019))*/
 /* /!\ Attention aux parenthèses /!\ */
 
-SELECT DISTINCT no_anim AS "Numero animateur", nom_anim AS "Nom animateur", prenom_anim AS "Prenom animateur"
+SELECT DISTINCT no_anim, nom_anim, prenom_anim
 FROM animateur
 WHERE NOT EXISTS (
     SELECT no_session
@@ -141,10 +148,20 @@ ORDER BY classt;
 
 /* 9- Existe-t-il des sessions pour lesquelles l'animateur responsable de la session ne fait pas partie de l'ensemble des animateurs de la session ?*/
 
+select no_session
+from session
+where NOT EXISTS
+    (select no_anim
+     from animateur
+     where no_anim NOT IN
+        (select session.no_anim_resp
+         from anime, animateur
+         where session.no_anim_resp = animateur.no_anim))
+
 /* 10- Existe-t-il des animateurs qui ont été responsables d’une session portant sur un thème
 dont ils ne sont pas spécialistes ? */
 
-SELECT animateur.no_anim, animateur.nom_anim, animateur.prenom_anim
+SELECT animateur.nom_anim, animateur.prenom_anim, animateur.no_anim
 FROM animateur
 WHERE  NOT EXISTS(
     SELECT session.no_anim_resp
@@ -162,37 +179,21 @@ WHERE  NOT EXISTS(
     )
 )
 
-/* Résultats des requêtes */
+/* Résultat de requêtes */
 
-/* Résultat Requête 2 :
-Nombre d'inscrit.s      no_session
-3                       S9        
-5                       S10
-0                       S3              */
 
-/* Résultat Requête 4 :
-Numero adherent         Nom adherent
-1                       IUT Metz
-3                       IDMC            */
+/* Synthaxes : */
 
-/* Résultat Requête 6 :
-Numero animateur        Nom animateur       Prenom animateur  
-AN1                     COVER               Harry              */
+/* Synthaxe de l'UNION :
+SELECT * FROM table1
+UNION
+SELECT * FROM table2 */
 
-/* Résultat Requête 8 :
-classt                  no_session              depenses        
-10                      S3                      5837
-9                       S5                      4789                 
-8                       S10                     4532
-7                       S8                      3475
-6                       S4                      3298
-5                       S1                      2876
-4                       S7                      2530
-3                       S2                      2189
-2                       S6                      1896
-1                       S9                      1598                */
-
-/* Résultat Requête 10 :
-MySQL a retourné un résultat vide (aucune ligne). (Traitement en 0.0016 secondes.)
-Ici, il n'existe donc pas d'animateur ayant été responsable d'une session dont il n'est pas spécialiste
-*/
+/* Synthaxe du EXISTS :
+SELECT *
+FROM commande
+WHERE EXISTS (
+    SELECT * 
+    FROM produit 
+    WHERE c_produit_id = p_id
+) */
