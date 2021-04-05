@@ -36,20 +36,22 @@ année là ? */
 SELECT adherent.no_adh, nom_adh
 FROM adherent,type_adh, employe, inscrit2, session
 WHERE adherent.no_type_adh=type_adh.no_type_adh
-AND nom_type_adh="entreprise"
-AND year(date_deb)='2019'
-AND employe.no_adh=adherent.no_adh
-AND employe.no_emp=inscrit2.no_emp
-AND inscrit2.no_session=session.no_session
-GROUP BY adherent.no_adh
-AND NOT EXISTS(
+AND nom_type_adh = "Entreprise"
+AND YEAR(date_deb) = '2019'
+AND employe.no_adh = adherent.no_adh
+AND employe.no_emp = inscrit2.no_emp
+AND inscrit2.no_session = session.no_session
+GROUP BY adherent.no_adh, adherent.nom_adh
+HAVING COUNT(*) >= 1
+AND NOT EXISTS (
     SELECT no_theme
     FROM theme
     WHERE no_theme NOT IN(
         SELECT session.no_theme
         FROM session
         WHERE year(date_deb)='2019'
-    ))
+    )
+)
 
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
 « Bases de Données » et démarrant en 2018 ou 2019 ? */
