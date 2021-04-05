@@ -169,6 +169,11 @@ WHERE  NOT EXISTS(
     )
 )
 
+/* Résultat de requêtes */
+
+
+/* Synthaxes : */
+
 /* Synthaxe de l'UNION :
 SELECT * FROM table1
 UNION
