@@ -120,7 +120,9 @@ WHERE  NOT EXISTS(
         SELECT session.no_anim_resp
         FROM specialite,session
         WHERE specialite.no_theme = session.no_theme
-        AND session.no_anim_resp = animateur.no_anim))
+        AND session.no_anim_resp = animateur.no_anim
+    )
+)
 
 /* Synthaxe de l'UNION :
 SELECT * FROM table1
