@@ -144,7 +144,7 @@ ORDER BY classt;
 /* 10- Existe-t-il des animateurs qui ont été responsables d’une session portant sur un thème
 dont ils ne sont pas spécialistes ? */
 
-SELECT animateur.nom_anim, animateur.prenom_anim, animateur.no_anim
+SELECT animateur.no_anim, animateur.nom_anim, animateur.prenom_anim
 FROM animateur
 WHERE  NOT EXISTS(
     SELECT session.no_anim_resp
@@ -176,6 +176,22 @@ Numero adherent         Nom adherent
 3                       IDMC            */
 
 /* Résultat Requête 6 :
-Numero animateur        Nom animateur        Prenom animateur  
-AN1                     COVER                Harry              */
+Numero animateur        Nom animateur       Prenom animateur  
+AN1                     COVER               Harry              */
 
+/* Résultat Requête 8 :
+classt                  no_session              depenses        
+10                      S3                      5837
+9                       S5                      4789                 
+8                       S10                     4532
+7                       S8                      3475
+6                       S4                      3298
+5                       S1                      2876
+4                       S7                      2530
+3                       S2                      2189
+2                       S6                      1896
+1                       S9                      1598                */
+
+/* Résultat Requête 10 :
+no_anim                 nom_anim            prenom_anim
+*/
