@@ -20,7 +20,8 @@ CREATE TEMPORARY TABLE table2
 CREATE TEMPORARY TABLE table3
     SELECT COUNT(no_session) n1
     FROM session
-    WHERE date_deb < NOW();
+    WHERE date_deb < DATE(NOW());
+                          
     SELECT (n2*100)/n1
     FROM table2, table3;
     
