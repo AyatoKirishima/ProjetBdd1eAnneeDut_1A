@@ -172,8 +172,11 @@ WHERE  NOT EXISTS(
 /* Résultat de requêtes */
 
 /* Résultat Requête 2 :
-no_session Nombre d'inscrit.s
-S9         1                  */
+no_session  Nombre d'inscrit.s
+S9          1                  
+S10         5
+S3          0
+                               */
 
 
 /* Synthaxes : */
