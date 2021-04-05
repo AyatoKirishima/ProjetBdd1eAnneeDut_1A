@@ -83,6 +83,17 @@ AND NOT EXISTS (
 
 /* 5- Quels sont les thèmes pour lesquels au moins une session a été organisée lors de chacune des 3 dernières années révolues ? */
 
+SELECT DISTINCT no_theme, lib_theme
+FROM theme, session
+WHERE theme.no_theme = session.no_theme
+GROUP BY no_theme, lib_theme
+HAVING COUNT(*) >=1
+UNION
+SELECT session.no_theme
+WHERE (YEAR(date_deb) = 2018)
+AND (YEAR(date_deb) = 2019)
+AND (YEAR(date_deb) = 2020)
+
 /* 6- Quels animateurs ont participé à l’animation de toutes les sessions portant sur le thème
 « Bases de Données » et démarrant en 2018 ou 2019 ? */
 /* Condition : 2018 || 2019 = et (condition) / et ((annee(date_deb)=2018) ou (annee(date_deb)=2019))*/
