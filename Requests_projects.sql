@@ -29,9 +29,8 @@ CREATE TEMPORARY TABLE table3
 /* 2- Quel est, pour chacune des sessions démarrant en 2018 ou 2019 et portant sur le thème
 « Bases de Données », le nombre d’inscrits de type adhérent « individuel » (attention
 au cas 0) ? */
-
-CREATE TEMPORARY TABLE table1 
-    SELECT COUNT(no_adh), session.no_session
+ 
+    SELECT COUNT(no_adh) AS "Nombre d'inscrit.s", session.no_session
     FROM theme, session, inscrit1
     WHERE theme.no_theme = session.no_theme
     AND session.no_session = inscrit1.no_session
@@ -39,8 +38,7 @@ CREATE TEMPORARY TABLE table1
     AND (date_deb <= "2018-01-01"
     OR date_deb >= "2019-01-01")
     GROUP BY session.no_session /* <-- on partionne sur le nombre de sessions */
-    ;
-CREATE TEMPORARY TABLE table2 
+UNION 
     SELECT no_session, 0
     FROM inscrit1
     WHERE no_session NOT IN 
@@ -48,12 +46,7 @@ CREATE TEMPORARY TABLE table2
         SELECT no_session
         FROM session, theme
         WHERE theme.no_theme = session.no_theme
-    );
-SELECT no_session /*,COUNT(*) AS "Nombre d'inscrit.s" */
-FROM table1
-UNION
-SELECT no_session /*,COUNT(*) AS "Nombre d'inscrit.s" */
-FROM table2 
+    )
 
 /* 3- Quel est, pour chacune des sessions ayant démarré en 2020, le pourcentage de participants inscrits par une entreprise et le pourcentage de articipants individuels ? */
 
@@ -172,11 +165,10 @@ WHERE  NOT EXISTS(
 /* Résultat de requêtes */
 
 /* Résultat Requête 2 :
-no_session  Nombre d'inscrit.s
-S9          1                  
-S10         5
-S3          0
-                               */
+Nombre d'inscrit.s      no_session
+3                       S9        
+5                       S10
+0                       S3              */
 
 
 /* Synthaxes : */
