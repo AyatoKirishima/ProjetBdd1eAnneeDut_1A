@@ -170,19 +170,3 @@ Nombre d'inscrit.s      no_session
 5                       S10
 0                       S3              */
 
-
-/* Synthaxes : */
-
-/* Synthaxe de l'UNION :
-SELECT * FROM table1
-UNION
-SELECT * FROM table2 */
-
-/* Synthaxe du EXISTS :
-SELECT *
-FROM commande
-WHERE EXISTS (
-    SELECT * 
-    FROM produit 
-    WHERE c_produit_id = p_id
-) */
