@@ -57,6 +57,45 @@ FROM table2
 
 /* 3- Quel est, pour chacune des sessions ayant démarré en 2020, le pourcentage de participants inscrits par une entreprise et le pourcentage de articipants individuels ? */
 
+CREATE TEMPORARY TABLE table1
+SELECT SESSION.no_session, COUNT(no_adh) AS n1
+FROM INSCRIT1, SESSION
+WHERE YEAR(date_deb)=2020
+AND SESSION.no_session=INSCRIT1.no_session
+GROUP BY SESSION.no_session
+UNION 
+SELECT SESSION.no_session,0
+FROM SESSION, INSCRIT1
+WHERE YEAR(date_deb)=2020
+AND SESSION.no_session NOT IN(
+    SELECT SESSION.no_session
+    FROM SESSION, INSCRIT1
+    WHERE YEAR(date_deb)=2020
+    AND SESSION.no_session=INSCRIT1.no_session)
+;
+CREATE TEMPORARY TABLE table2
+SELECT SESSION.no_session, COUNT(no_emp) AS n2
+FROM INSCRIT2, SESSION
+WHERE YEAR(date_deb)=2020
+AND SESSION.no_session=INSCRIT2.no_session
+GROUP BY SESSION.no_session
+UNION
+SELECT SESSION.no_session,0
+FROM SESSION, INSCRIT2
+WHERE YEAR(date_deb)=2020
+AND SESSION.no_session NOT IN(
+    SELECT SESSION.no_session
+    FROM SESSION, INSCRIT2
+    WHERE YEAR(date_deb)=2020
+    AND SESSION.no_session=INSCRIT2.no_session)
+;
+SELECT SESSION.no_session, (n2*100)/n1 AS pct_entreprise, (n2*100)/n1 AS pct_indiv
+FROM table11, table22, SESSION
+WHERE SESSION.no_session=table1.no_session
+AND SESSION.no_session=table2.no_session
+GROUP BY SESSION.no_session
+;
+
 /* 4- Quels adhérents de type entreprise ont inscrit au moins un employé à des sessions
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
