@@ -194,5 +194,5 @@ classt                  no_session              depenses
 
 /* Résultat Requête 10 :
 MySQL a retourné un résultat vide (aucune ligne). (Traitement en 0.0016 secondes.)
-Ici, il n'existe donc pas d'animateur ayant été responsable d'un thème dont ils ne sont pas spécialistes
+Ici, il n'existe donc pas d'animateur ayant été responsable d'une session dont il n'est pas spécialiste
 */
