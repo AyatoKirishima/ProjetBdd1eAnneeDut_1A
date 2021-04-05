@@ -169,6 +169,9 @@ create temporary table table3
     from anime, session
     where session.no_session = anime.no_session
     and ( year(date_sal) = 2020);
+    
+select ((n2*100)/n1) as prises_de_resp, ((n3*100)/n1) as heures_de_formation
+    from table1, table2, table3;
 
 /* 8- Quelles sont les 10 sessions démarrant en 2019 pour lesquelles les dépenses (prime de
 responsabilité + coût des heures de formation) ont été les plus élevées et classées dans
