@@ -92,7 +92,7 @@ AND (YEAR(date_deb) = 2020)
 /* Condition : 2018 || 2019 = et (condition) / et ((annee(date_deb)=2018) ou (annee(date_deb)=2019))*/
 /* /!\ Attention aux parenthèses /!\ */
 
-SELECT DISTINCT no_anim, nom_anim, prenom_anim
+SELECT DISTINCT no_anim AS "Numero animateur", nom_anim AS "Nom animateur", prenom_anim AS "Prenom animateur"
 FROM animateur
 WHERE NOT EXISTS (
     SELECT no_session
@@ -162,7 +162,7 @@ WHERE  NOT EXISTS(
     )
 )
 
-/* Résultat de requêtes */
+/* Résultats des requêtes */
 
 /* Résultat Requête 2 :
 Nombre d'inscrit.s      no_session
@@ -173,5 +173,9 @@ Nombre d'inscrit.s      no_session
 /* Résultat Requête 4 :
 Numero adherent         Nom adherent
 1                       IUT Metz
-3                       IDMC                 */
+3                       IDMC            */
+
+/* Résultat Requête 6 :
+Numero animateur        Nom animateur        Prenom animateur  
+AN1                     COVER                Harry              */
 
