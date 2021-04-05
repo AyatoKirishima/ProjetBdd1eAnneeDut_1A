@@ -1,5 +1,30 @@
 /* Requêtes d’interrogation */
 
+/* 1- Que pourcentage des sessions déjà réalisées comporte des employés inscrits provenant d'au moins 4 entreprises différentes ? */
+
+CREATE TEMPORARY TABLE table1
+    SELECT no_session
+    FROM session s, inscrit2 ins2, employe emp, adherent adh, type_adh t_adh
+    WHERE s.no_session = ins2.no_session
+    AND ins2.no_emp = emp.no_emp
+    AND emp.no_adh = adh.no_adh
+    AND adh.no_type_adh = t_adh.no_type_adh
+    AND nom_type_adh = "Entreprise"
+    GROUP BY no_session
+    HAVING COUNT(no_adh)>= 4;
+    
+CREATE TEMPORARY TABLE table2
+    SELECT COUNT(*) n2
+    FROM table1;
+    
+CREATE TEMPORARY TABLE table3
+    SELECT COUNT(no_session) n1
+    FROM session
+    WHERE date_deb < NOW();
+    SELECT (n2*100)/n1
+    FROM table2, table3;
+    
+
 /* 2- Quel est, pour chacune des sessions démarrant en 2018 ou 2019 et portant sur le thème
 « Bases de Données », le nombre d’inscrits de type adhérent « individuel » (attention
 au cas 0) ? */
