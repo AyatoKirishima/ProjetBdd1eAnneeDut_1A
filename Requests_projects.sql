@@ -152,6 +152,24 @@ WHERE NOT EXISTS (
 
 /* 7- Pour tous les salaires versés en 2020, quel est le pourcentage correspondant aux prises de responsabilités et le pourcentage correspondant aux heures de formation ?*/
 
+create temporary table table1
+    select sum(prime)+(taux_heure*nb_heures) n1
+    from anime, session
+    where session.no_session = anime.no_session
+    and ( year(date_sal) = 2020);
+
+create temporary table table2
+    select sum(prime) n2
+    from anime, session
+    where session.no_session = anime.no_session
+    and ( year(date_sal) = 2020);
+    
+create temporary table table3
+    select (taux_heure*nb_heures) n3
+    from anime, session
+    where session.no_session = anime.no_session
+    and ( year(date_sal) = 2020);
+
 /* 8- Quelles sont les 10 sessions démarrant en 2019 pour lesquelles les dépenses (prime de
 responsabilité + coût des heures de formation) ont été les plus élevées et classées dans
 l’ordre décroissant de ces dépenses ? */
