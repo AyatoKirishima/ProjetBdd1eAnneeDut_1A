@@ -1,6 +1,6 @@
 /* Requêtes d’interrogation */
 
-/* 1- Que pourcentage des sessions déjà réalisées comporte des employés inscrits provenant d'au moins 4 entreprises différentes ? */
+/* 1- Quel pourcentage des sessions déjà réalisées comporte des employés inscrits provenant d'au moins 4 entreprises différentes ? */
 
 CREATE TEMPORARY TABLE table1
     SELECT no_session
