@@ -54,7 +54,7 @@ UNION
 démarrant en 2019 portant sur tous les thèmes pour lesquels il y a eu des sessions cette
 année là ? */
 
-SELECT adherent.no_adh, nom_adh
+SELECT adherent.no_adh AS "Numero adherent", nom_adh AS "Nom adherent"
 FROM adherent,type_adh, employe, inscrit2, session
 WHERE adherent.no_type_adh=type_adh.no_type_adh
 AND nom_type_adh = "Entreprise"
@@ -169,4 +169,9 @@ Nombre d'inscrit.s      no_session
 3                       S9        
 5                       S10
 0                       S3              */
+
+/* Résultat Requête 4 :
+Numero adherent         Nom adherent
+1                       IUT Metz
+3                       IDMC                 */
 
