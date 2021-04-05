@@ -193,5 +193,6 @@ classt                  no_session              depenses
 1                       S9                      1598                */
 
 /* Résultat Requête 10 :
-no_anim                 nom_anim            prenom_anim
+MySQL a retourné un résultat vide (aucune ligne). (Traitement en 0.0016 secondes.)
+Ici, il n'existe donc pas d'animateur ayant été responsable d'un thème dont ils ne sont pas spécialistes
 */
