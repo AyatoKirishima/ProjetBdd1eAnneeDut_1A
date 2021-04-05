@@ -49,10 +49,10 @@ CREATE TEMPORARY TABLE table2
         FROM session, theme
         WHERE theme.no_theme = session.no_theme
     );
-SELECT no_session 
+SELECT no_session /*,COUNT(*) AS "Nombre d'inscrit.s" */
 FROM table1
 UNION
-SELECT no_session 
+SELECT no_session /*,COUNT(*) AS "Nombre d'inscrit.s" */
 FROM table2 
 
 /* 3- Quel est, pour chacune des sessions ayant démarré en 2020, le pourcentage de participants inscrits par une entreprise et le pourcentage de articipants individuels ? */
@@ -170,6 +170,10 @@ WHERE  NOT EXISTS(
 )
 
 /* Résultat de requêtes */
+
+/* Résultat Requête 2 :
+no_session Nombre d'inscrit.s
+S9         1                  */
 
 
 /* Synthaxes : */
