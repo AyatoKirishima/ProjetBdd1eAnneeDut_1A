@@ -57,42 +57,42 @@ FROM table2
 /* 3- Quel est, pour chacune des sessions ayant démarré en 2020, le pourcentage de participants inscrits par une entreprise et le pourcentage de articipants individuels ? */
 
 CREATE TEMPORARY TABLE table1
-SELECT SESSION.no_session, COUNT(no_adh) AS n1
-FROM INSCRIT1, SESSION
+SELECT session.no_session, COUNT(no_adh) AS n1
+FROM inscrit1, session
 WHERE YEAR(date_deb)=2020
-AND SESSION.no_session=INSCRIT1.no_session
-GROUP BY SESSION.no_session
+AND session.no_session=inscrit1.no_session
+GROUP BY session.no_session
 UNION 
-SELECT SESSION.no_session,0
-FROM SESSION, INSCRIT1
+SELECT session.no_session,0
+FROM session, inscrit1
 WHERE YEAR(date_deb)=2020
-AND SESSION.no_session NOT IN(
-    SELECT SESSION.no_session
-    FROM SESSION, INSCRIT1
+AND session.no_session NOT IN(
+    SELECT session.no_session
+    FROM session, inscrit1
     WHERE YEAR(date_deb)=2020
-    AND SESSION.no_session=INSCRIT1.no_session)
+    AND session.no_session=inscrit1.no_session)
 ;
 CREATE TEMPORARY TABLE table2
-SELECT SESSION.no_session, COUNT(no_emp) AS n2
-FROM INSCRIT2, SESSION
+SELECT session.no_session, COUNT(no_emp) AS n2
+FROM inscrit2, session
 WHERE YEAR(date_deb)=2020
-AND SESSION.no_session=INSCRIT2.no_session
-GROUP BY SESSION.no_session
+AND session.no_session=inscrit2.no_session
+GROUP BY session.no_session
 UNION
-SELECT SESSION.no_session,0
-FROM SESSION, INSCRIT2
+SELECT session.no_session,0
+FROM session, inscrit2
 WHERE YEAR(date_deb)=2020
-AND SESSION.no_session NOT IN(
-    SELECT SESSION.no_session
-    FROM SESSION, INSCRIT2
+AND session.no_session NOT IN(
+    SELECT session.no_session
+    FROM session, inscrit2
     WHERE YEAR(date_deb)=2020
-    AND SESSION.no_session=INSCRIT2.no_session)
+    AND session.no_session=inscrit2.no_session)
 ;
-SELECT SESSION.no_session, (n2*100)/n1 AS pct_entreprise, (n2*100)/n1 AS pct_indiv
-FROM table11, table22, SESSION
-WHERE SESSION.no_session=table1.no_session
-AND SESSION.no_session=table2.no_session
-GROUP BY SESSION.no_session
+SELECT session.no_session, (n2*100)/n1 AS pct_entreprise, (n2*100)/n1 AS pct_indiv
+FROM table1, table2, session
+WHERE session.no_session=table1.no_session
+AND session.no_session=table2.no_session
+GROUP BY session.no_session
 ;
 
 /* 4- Quels adhérents de type entreprise ont inscrit au moins un employé à des sessions
@@ -238,7 +238,32 @@ WHERE  NOT EXISTS(
 
 /* Résultat de requêtes */
 
+/* Requête 1 */
+        _____________
+   /*  | (n2*100)/n1 |
+       |-------------|
+       |0.000        |
+       |_____________|  */
 
+/* Requête 3 */ 
+         
+/* Requête 5 */   
+   
+      /* MySQL a retourné un résultat vide  */
+
+ /* Requête 7 */
+        ____________________________________________
+ /*    | prises_de_resp      | heures_de_formation |
+       |---------------------|---------------------|
+       |33.333               | 66.667              |
+       |_____________________|_____________________|
+       |33.333               |33.333               |
+       |_____________________|_____________________|   */
+         
+ /* Requête 9 */
+         
+      /* MySQL a retourné un résultat vide  */
+         
 /* Synthaxes : */
 
 /* Synthaxe de l'UNION :
