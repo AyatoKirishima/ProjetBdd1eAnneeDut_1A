@@ -239,45 +239,71 @@ WHERE  NOT EXISTS(
 /* Résultat de requêtes */
 
 /* Requête 1 */
-        _____________
-   /*  | (n2*100)/n1 |
+   /*   _____________
+       | (n2*100)/n1 |
        |-------------|
        |0.000        |
        |_____________|  */
 
+
+/* Résultat Requête 2 :
+Nombre d'inscrit.s      no_session
+3                       S9        
+5                       S10
+0                       S3              */
+
+
 /* Requête 3 */ 
                   
       /* MySQL a retourné un résultat vide  */
-         
+
+
+/* Résultat Requête 4 :
+Numero adherent         Nom adherent
+1                       IUT Metz
+3                       IDMC                 */
+
+
 /* Requête 5 */   
    
       /* MySQL a retourné un résultat vide  */
 
+
+/* Résultat Requête 6 :
+Numero animateur        Nom animateur        Prenom animateur  
+AN1                     COVER                Harry              */
+
+
  /* Requête 7 */
-        ____________________________________________
- /*    | prises_de_resp      | heures_de_formation |
+/*     ____________________________________________
+       | prises_de_resp      | heures_de_formation |
        |---------------------|---------------------|
        |33.333               | 66.667              |
        |_____________________|_____________________|
        |33.333               |33.333               |
        |_____________________|_____________________|   */
+
+
+/* Résultat Requête 8 :
+classt                  no_session              depenses        
+10                      S3                      5837
+9                       S5                      4789                 
+8                       S10                     4532
+7                       S8                      3475
+6                       S4                      3298
+5                       S1                      2876
+4                       S7                      2530
+3                       S2                      2189
+2                       S6                      1896
+1                       S9                      1598                */
+
          
  /* Requête 9 */
          
       /* MySQL a retourné un résultat vide  */
          
-/* Synthaxes : */
 
-/* Synthaxe de l'UNION :
-SELECT * FROM table1
-UNION
-SELECT * FROM table2 */
-
-/* Synthaxe du EXISTS :
-SELECT *
-FROM commande
-WHERE EXISTS (
-    SELECT * 
-    FROM produit 
-    WHERE c_produit_id = p_id
-) */
+/* Résultat Requête 10 :
+MySQL a retourné un résultat vide (aucune ligne). (Traitement en 0.0016 secondes.)
+Ici, il n'existe donc pas d'animateur ayant été responsable d'un thème dont ils ne sont pas spécialistes
+*/ 
