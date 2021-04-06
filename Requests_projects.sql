@@ -1,3 +1,8 @@
+/*_________________________________________
+|       DE MATOS RIBEIROS Romain           |
+|            MULLER Léane                  |
+____________________________________________ */
+
 /* Requêtes d’interrogation */
 
 /* 1- Quel pourcentage des sessions déjà réalisées comporte des employés inscrits provenant d'au moins 4 entreprises différentes ? */
@@ -304,6 +309,8 @@ classt                  no_session              depenses
          
 
 /* Résultat Requête 10 :
+
+
 MySQL a retourné un résultat vide (aucune ligne). (Traitement en 0.0016 secondes.)
 Ici, il n'existe donc pas d'animateur ayant été responsable d'un thème dont ils ne sont pas spécialistes
 */ 
