@@ -246,6 +246,8 @@ WHERE  NOT EXISTS(
        |_____________|  */
 
 /* Requête 3 */ 
+                  
+      /* MySQL a retourné un résultat vide  */
          
 /* Requête 5 */   
    
